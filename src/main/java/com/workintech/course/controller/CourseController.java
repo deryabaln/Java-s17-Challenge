@@ -70,6 +70,7 @@ public class CourseController {
     @PutMapping("/{name}")
     public CourseResponse update(@PathVariable String name, @RequestBody Course updatedCourse) {
         CourseValidation.isCreditValid(updatedCourse.getCredit());
+        CourseValidation.isCourseExist(courses, updatedCourse.getName());
         CourseValidation.isCourseValid(updatedCourse);
         Optional<Course> courseOptional = courses.stream()
                 .filter(course -> course.getName().equals(name))
