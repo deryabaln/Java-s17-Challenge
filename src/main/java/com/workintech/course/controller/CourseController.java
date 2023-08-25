@@ -79,19 +79,16 @@ public class CourseController {
             Course existingCourse = courseOptional.get();
             int index = courses.indexOf(existingCourse);
             courses.set(index, updatedCourse);
-            CourseResponse courseResponse = new CourseResponse(updatedCourse, FactoryTotalGpa.calculationTotalGpa(updatedCourse,
-                    lowCourseGpa, mediumCourseGpa, highCourseGpa));
-            return courseResponse;
         } else {
             CourseValidation.isCourseNotExist(courses, updatedCourse.getName());
-            return null;
         }
+        CourseResponse courseResponse = new CourseResponse(updatedCourse, FactoryTotalGpa.calculationTotalGpa(updatedCourse,
+                lowCourseGpa, mediumCourseGpa, highCourseGpa));
+        return courseResponse;
     }
 
     @DeleteMapping("/{name}")
     public Course delete(@PathVariable String name) {
-        CourseValidation.isCourseNotExist(courses, name);
-
         Optional<Course> optionalCourse = courses.stream()
                 .filter(course -> course.getName().equals(name))
                 .findFirst();
@@ -101,6 +98,7 @@ public class CourseController {
             courses.remove(courseToDelete);
             return courseToDelete;
         } else {
+            CourseValidation.isCourseNotExist(courses, name);
             return null;
         }
     }
