@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 public class CourseController {
-    private List <Course> courses;
+    private List<Course> courses;
     private CourseGpa lowCourseGpa;
     private CourseGpa mediumCourseGpa;
     private CourseGpa highCourseGpa;
@@ -30,19 +30,20 @@ public class CourseController {
 
     @Autowired
     public CourseController(@Qualifier("lowCourseGpa") LowCourseGpa lowCourseGpa,
-                               @Qualifier("mediumCourseGpa") MediumCourseGpa mediumCourseGpa,
-                               @Qualifier("highCourseGpa") HighCourseGpa highCourseGpa) {
+                            @Qualifier("mediumCourseGpa") MediumCourseGpa mediumCourseGpa,
+                            @Qualifier("highCourseGpa") HighCourseGpa highCourseGpa) {
         this.lowCourseGpa = lowCourseGpa;
         this.mediumCourseGpa = mediumCourseGpa;
         this.highCourseGpa = highCourseGpa;
     }
+
     @GetMapping("/")
-    public List<Course> getAll(){
+    public List<Course> getAll() {
         return courses;
     }
 
     @GetMapping("/{name}")
-    public Course get(@PathVariable String name){
+    public Course get(@PathVariable String name) {
         Optional<Course> optionalCourse = courses.stream()
                 .filter(course -> course.getName().equals(name))
                 .findFirst();
@@ -56,7 +57,7 @@ public class CourseController {
     }
 
     @PostMapping("/")
-    public CourseResponse save(@RequestBody Course course){
+    public CourseResponse save(@RequestBody Course course) {
         CourseValidation.isCreditValid(course.getCredit());
         CourseValidation.isCourseExist(courses, course.getName());
         CourseValidation.isCourseValid(course);
@@ -86,6 +87,7 @@ public class CourseController {
         }
     }
 
+    @DeleteMapping
     public Course delete(@PathVariable String name) {
         CourseValidation.isCourseNotExist(courses, name);
 
