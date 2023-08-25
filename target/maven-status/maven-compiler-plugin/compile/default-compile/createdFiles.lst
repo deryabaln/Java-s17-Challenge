@@ -1,4 +1,6 @@
+com/workintech/course/mapping/FactoryTotalGpa.class
 com/workintech/course/entity/HighCourseGpa.class
+com/workintech/course/mapping/CourseResponse.class
 com/workintech/course/entity/Course.class
 com/workintech/course/exceptions/CourseValidation.class
 com/workintech/course/controller/CourseController.class

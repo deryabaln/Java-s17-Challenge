@@ -87,7 +87,7 @@ public class CourseController {
         }
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{name}")
     public Course delete(@PathVariable String name) {
         CourseValidation.isCourseNotExist(courses, name);
 
